@@ -17,7 +17,7 @@ class cookBook{
             for (int a=0; a < (int)allTags.size(); a++){
                 if (allTags[a] == tag){
                     for (int b=0; b < (int)recipes.size(); b++){
-                        if (recipes[b].getName() == recipeName){
+                        if (recipes[b].name == recipeName){
                             recipes[b].addTag(tag);
                             status = true;
                             break;
@@ -27,7 +27,38 @@ class cookBook{
             }
             if (!status){throw "Tag or recipe not found";}
         }
-         void Plan(vector<Recipes>& recipes, vector<string>& tags){
+        //5
+        void printByIngridient(const string& ingridient){
+            if (recipes.size() == 0) {
+             throw "No recipes in cookbook!";
+             return;
+            }
+            bool status = false;
+            cout << "Recipes found with " << ingridient << ":" << endl;
+            for (int i=0; i < recipes.size(); i++){
+                for (int c=0; c < recipes[i].ingridients.size(); c++){
+                    if (recipes[i].ingridients[c].getIname() == ingridient){
+                        status = true;
+                        recipes[i].printRecipe();
+                    }
+                }
+            }
+            if (!status){throw "Ingridient not found";}
+        }
+        //6
+        void light(int cal){
+            if (recipes.size() == 0) {
+             throw "No recipes in cookbook!";
+             return;
+            }
+            for (int i=0; i < recipes.size(); i++){
+                if (recipes[i].calories <= cal){
+                    recipes[i].printRecipe();
+                }
+            }
+        }
+        //7
+        void Plan(){
             cout << "type over to end" << endl << "Excluded tags:" << endl;
             vector<string> tager;
             int index = 0;
@@ -60,6 +91,34 @@ class cookBook{
                 cout << days[i] << ":" << endl << endl;
                 recipes[r].printRecipe();
             }
+        }
+        //8
+        void Difficulty(const string& name){
+            if (recipes.size() == 0) {
+             throw "No recipes in cookbook!";
+             return;
+            }
+            bool status = false;
+            int difficulty = 0;
+            for (int i=0; i < recipes.size(); i++){
+                if (recipes[i].name == name){
+                    status = true;
+                    if (recipes[i].cookTime > 10 || recipes[i].cookTime < 20){difficulty++;}
+                    if (recipes[i].cookTime >= 20 || recipes[i].cookTime < 30){difficulty+=2;}
+                    if (recipes[i].cookTime >= 30 || recipes[i].cookTime < 45){difficulty+=3;}
+                    if (recipes[i].cookTime >= 45 || recipes[i].cookTime < 60){difficulty+=4;}
+                    if (recipes[i].cookTime >= 60){difficulty+=5;}
+                    if (recipes[i].ingridients.size() > 3 || recipes[i].ingridients.size() < 5){difficulty++;}
+                    if (recipes[i].ingridients.size() >= 5 || recipes[i].ingridients.size() < 7){difficulty+=2;}
+                    if (recipes[i].ingridients.size() >= 7 || recipes[i].ingridients.size() < 10){difficulty+=3;}
+                    if (recipes[i].ingridients.size() >= 10 || recipes[i].ingridients.size() < 15){difficulty+=4;}
+                    if (recipes[i].ingridients.size() >= 15){difficulty+=5;}
+                    cout << "difficulty 0/10: " << difficulty << endl;
+                    break;
+                }
+
+            }
+            if (!status){throw "Recipe not found";}
         }
 };
 

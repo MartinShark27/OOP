@@ -1,7 +1,7 @@
 #include "Ingridients.cpp"
 
 class Recipes{
-
+    friend class cookBook;
     private:
         string name;
         vector<Ingridients> ingridients;
@@ -9,6 +9,7 @@ class Recipes{
         int cookTime;
         int calories;
     public:
+        //1
         Recipes(string n, int c, int t) : name(n), calories(c), cookTime(t){}
 
         void addIngridient(const string i, const string a){
@@ -30,6 +31,7 @@ class Recipes{
             tags.push_back(tag);
         }
         
+        //2
         void getRecipe(const vector<Recipes>& recipes, const string& name){
             for (int i=0; i < (int)recipes.size(); i++){
                 if (recipes[i].name == name){
@@ -37,6 +39,7 @@ class Recipes{
                 }else{ throw "Recipe not found";}
             }
         }
+        //3
         void PrintByTag(const vector<Recipes>& recipes, const string& tag){
             bool status = false;
             cout << "Recipes found with " << tag << ":" << endl;
@@ -50,10 +53,7 @@ class Recipes{
             }
             if (!status){throw "Tag not found";}
         }
-
-        int getCalories() const{return calories;}
-        string getName() const{return name;}
-
+        //4
         void getTotalCalories(vector<Recipes>& recipes) const{
             cout << "type over to end" << endl << "What did you eat?" << endl << endl;
             int totalCal = 0;
@@ -64,8 +64,8 @@ class Recipes{
                 bool status = false;
                 if (input == "over"){ break;}
                 for (int i=0; i < (int)recipes.size(); i++){
-                    if (recipes[i].getName() == input){
-                        totalCal += recipes[i].getCalories();
+                    if (recipes[i].name == input){
+                        totalCal += recipes[i].calories;
                         status = true;
                         break;
                     }

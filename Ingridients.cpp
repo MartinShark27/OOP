@@ -14,4 +14,5 @@ class Ingridients{
     public:
         friend class Recipes;
         Ingridients(string i, string a) : iname(i), amount(a){}
+        string getIname() const{return iname;}
 };
