@@ -27,6 +27,70 @@ class cookBook{
             }
             if (!status){throw "Tag or recipe not found";}
         }
+        void addIngridientToRecipe(const string& recipeName, const string& i, const string& a){
+            for (int b = 0; b < (int)recipes.size(); b++){
+                if (recipes[b].name == recipeName){
+                    recipes[b].ingridients.push_back(Ingridients(i, a));
+                    return;
+                }
+            }
+            throw "Recipe not found";
+        }
+        //2
+        void getRecipe(const string& name){
+            for (int i=0; i < (int)recipes.size(); i++){
+                if (recipes[i].name == name){
+                    recipes[i].printRecipe();
+                }else{ throw "Recipe not found";}
+            }
+        }
+        //3
+        void PrintByTag(const string& tag){
+            bool status = false;
+            cout << "Recipes found with " << tag << ":" << endl;
+            for (int i=0; i < (int)recipes.size(); i++){
+                for (int c=0; c < (int)recipes[i].tags.size(); c++){
+                    if (recipes[i].tags[c] == tag){
+                        status = true;
+                        recipes[i].printRecipe();
+                    }
+                }
+            }
+            if (!status){throw "Tag not found";}
+        }
+        //4
+        void getTotalCalories() const{
+            cout << "type over to end" << endl << "What did you eat?" << endl << endl;
+            int totalCal = 0;
+
+            while(true){
+                string input;
+                getline (cin, input);
+                bool status = false;
+                if (input == "over"){ break;}
+                for (int i=0; i < (int)recipes.size(); i++){
+                    if (recipes[i].name == input){
+                        totalCal += recipes[i].calories;
+                        status = true;
+                        break;
+                    }
+                }
+                if (!status){throw "Last recipe not found";}
+            }
+            cout << "Total calories consumed:" << totalCal << endl;
+        }
+
+        void deleteRecipe(const string& name){
+            bool status = false;
+            for(int i=0; i < (int)recipes.size(); i++){
+                if (recipes[i].name == name){
+                    recipes.erase(recipes.begin() + i);
+                    status = true;
+                    break;
+                }
+            }
+            if (!status){throw "Recipe not found";}
+        }
         //5
         void printByIngridient(const string& ingridient){
             if (recipes.size() == 0) {
