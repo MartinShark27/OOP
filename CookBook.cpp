@@ -185,8 +185,3 @@ class cookBook{
             if (!status){throw "Recipe not found";}
         }
 };
-
-int main(){
-
-    srand(time(0));
-}
